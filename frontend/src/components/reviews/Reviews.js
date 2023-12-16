@@ -3,6 +3,7 @@ import api from '../../api/axiosConfig';
 import {useParams} from 'react-router-dom';
 import {Container, Row, Col} from 'react-bootstrap';
 import ReviewForm from '../reviewForm/ReviewForm';
+import './Reviews.css';
 
 import React from 'react'
 
@@ -11,10 +12,11 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
     const revText = useRef();
     let params = useParams();
     const movieId = params.movieId;
+    
 
     useEffect(()=>{
         getMovieData(movieId);
-    },[])
+    },[]);
 
     const addReview = async (e) =>{
         e.preventDefault();
@@ -35,20 +37,24 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
         {
             console.error(err);
         }
-        
-
-
-
     }
-
   return (
     <Container>
         <Row>
-            <Col><h3>Reviews</h3></Col>
+            <Col>
+                <span className='title'>Reviews</span>
+                <span className='movie-title'>{movie?.title}</span>
+            </Col>
         </Row>
         <Row className="mt-2">
             <Col>
-                <img src={movie?.poster} alt="" />
+                <div className='img-border'>
+                {
+                    movie != null ? 
+                    <img src={movie.poster} alt={movie.title} />
+                    : <></>
+                }
+                </div>
             </Col>
             <Col>
                 {
@@ -70,7 +76,20 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
                         return(
                             <>
                                 <Row>
-                                    <Col>{r.body}</Col>
+                                    <Col> 
+                                        {r.body}
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col className='data-title'>
+                                    {
+                                        r.created != null ? (
+                                            <>{new Date(r.created).toLocaleString()}</>
+                                        ):(
+                                            <>Now</>
+                                        )
+                                    }
+                                    </Col>
                                 </Row>
                                 <Row>
                                     <Col>

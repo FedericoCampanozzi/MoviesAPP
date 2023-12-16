@@ -1,0 +1,16 @@
+.img-border{
+    border: white solid 1px;
+    margin: 5px;
+}
+.title{
+    padding: 15px 0 0 10px;
+    font-size: 32px;
+}
+.movie-title{
+    padding: 15px 0 0 10px;
+    font-size: 18px;
+}
+.data-title{
+    font-size: 11px;
+    text-align: end;
+}
