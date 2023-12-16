@@ -10,6 +10,8 @@ import dev.federico.service.MovieService;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 @RestController
 @RequestMapping("/api/v1/movies")
@@ -27,4 +29,10 @@ public class MovieController {
     public ResponseEntity<Optional<Movie>> getSingleMovie(@PathVariable String imdbId){
         return new ResponseEntity<Optional<Movie>>(service.findMovieByImdbId(imdbId), HttpStatus.OK);
     }
+    
+    @GetMapping("/test")
+    public String getTest() {
+        return "Hello World !!!!";
+    }
+    
 }

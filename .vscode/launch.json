@@ -9,11 +9,18 @@
         },
         {
             "type": "java",
-            "name": "Spring Boot-MovieistApplication<movieist>",
+            "name": "MovieApplication",
+            "request": "launch",
+            "mainClass": "dev.federico.MovieApplication",
+            "projectName": "movies"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-moviesApplication<movies>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
-            "mainClass": "dev.farhan.movieist.MovieistApplication",
-            "projectName": "movieist",
+            "mainClass": "dev.federico.MovieApplication",
+            "projectName": "movies",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
         }
