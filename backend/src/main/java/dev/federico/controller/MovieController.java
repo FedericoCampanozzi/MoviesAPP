@@ -1,9 +1,12 @@
-package dev.farhan.movieist.movies;
+package dev.federico.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import dev.federico.interfaces.Movie;
+import dev.federico.service.MovieService;
 
 import java.util.List;
 import java.util.Optional;

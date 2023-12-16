@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "MovieApplication",
+            "request": "launch",
+            "mainClass": "dev.federico.MovieApplication",
+            "projectName": "movieist"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-MovieistApplication<movieist>",
             "request": "launch",
             "cwd": "${workspaceFolder}",

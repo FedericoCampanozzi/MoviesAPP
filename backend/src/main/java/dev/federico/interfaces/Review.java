@@ -1,4 +1,4 @@
-package dev.farhan.movieist.movies;
+package dev.federico.interfaces;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
