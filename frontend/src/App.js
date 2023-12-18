@@ -25,7 +25,7 @@ function App() {
       setMovies(m);
       setLikedMovies(m.filter((movie)=>movie.liked));
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -45,7 +45,7 @@ function App() {
       const response = await api.get("/api/v1/genres/get-all");
       setGenres(response.data);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 

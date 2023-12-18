@@ -12,3 +12,15 @@
 .card-move-image {
     max-width: 250px;
 }
+.card-movie-genres-container{
+    width: auto;
+    height: auto;
+    border-radius: 10px;
+    border: white 1px solid;
+    padding: 20px;
+}
+.header-col{
+    padding: 5px;
+    background-color: rgb(75, 69, 69);
+    text-align: center;
+}

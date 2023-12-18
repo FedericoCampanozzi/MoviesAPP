@@ -15,3 +15,14 @@
     padding: 0px 6px !important;
     margin: 4px !important;
 }
+.like-btn{
+    float: right;
+    position: relative;
+    top: -40px;
+}
+.movie-liked{
+    color: red !important;
+}
+.movie-unliked{
+    color: gray !important;
+}

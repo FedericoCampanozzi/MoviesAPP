@@ -2,8 +2,7 @@ import {Form,Button} from 'react-bootstrap';
 import './ReviewForm';
 
 const ReviewForm = ({handleSubmit,revText,labelText,defaultValue}) => {
-  //console.log(revText);
-  const lblBtn = revText.value != "" ? "Submit" : "Update";
+  const lblBtn = defaultValue == "" ? "Submit" : "Update";
   return (
 
     <Form>

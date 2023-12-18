@@ -5,42 +5,50 @@ import React from 'react';
 const Favorite = ({genres, likedMovies}) => {
     return (
         <>
-            <div className='container-fluid'>
-                <div className='row'>
-                    <div className='col-auto min-vh-100 bg-dark' style={{minWidth:'100px'}}>
-                        <ul>
-                            {
-                                genres?.map((g,i) => {
-                                  return (
-                                    <li key={i}>
-                                        <a className='nav-link px-2'>
-                                            {g}
-                                        </a>
-                                    </li>
-                                  )  
-                                })
-                            }
-                        </ul>
-                    </div>
-                <Container>
-                {
-                    likedMovies?.map((m,i)=>{
-                        return(
-                            <Row key={i} className='card-movie-container'>
-                                <Col>
-                                    <img src={m.poster} alt="" className='card-move-image' />
+            <Container style={{marginTop:'10px', marginBottom:'10px', width:'100%'}}>
+                <Row key={'hr0'}>
+                    {
+                        genres?.map((g,i) => {
+                            return (
+                                <Col key={'hc'+i} className='header-col'>
+                                    {g}
                                 </Col>
-                                <Col>
-                                    <p>Title: <span className='card-movie-title'>{m.title}</span></p>
-                                    <p>Data Release: <span className='card-movie-release-date'>{m.releaseDate}</span></p>
-                                </Col>
-                            </Row>
-                        )
-                    })
-                }
-                </Container>
-                </div>
-            </div>
+                            )  
+                        })
+                    }
+                </Row>
+            </Container>
+            <Container>
+            {
+                likedMovies?.map((m,i)=>{
+                    return(
+                        <Row key={i} className='card-movie-container'>
+                            <Col>
+                                <img src={m.poster} alt="" className='card-move-image' />
+                            </Col>
+                            <Col>
+                                <p>Title: <span className='card-movie-title'>{m.title}</span></p>
+                                <p>Data Release: <span className='card-movie-release-date'>{m.releaseDate}</span></p>
+                                <div className='card-movie-genres-container'>
+                                    Genres:
+                                    {
+                                        m.genres.map((g,i)=>{
+                                            return(
+                                                <Row key={"r"+i}>
+                                                    <Col key={"c"+i}>
+                                                        {g}
+                                                    </Col>
+                                                </Row>
+                                            )
+                                        })
+                                    }
+                                </div>
+                            </Col>
+                        </Row>
+                    )
+                })
+            }
+            </Container>
         </>
     )
 }
