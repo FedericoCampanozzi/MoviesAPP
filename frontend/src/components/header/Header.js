@@ -21,7 +21,8 @@ return (
                         navbarScroll
                     >
                     <NavLink className ="nav-link" to="/">Home</NavLink>
-                    <NavLink className ="nav-link" to="/watchList">Watch List</NavLink>      
+                    <NavLink className ="nav-link" to="/favorites">Favorites</NavLink>
+                    <NavLink className ="nav-link" to="/library">Library</NavLink>        
                 </Nav>
             </Navbar.Collapse>
         </Container>

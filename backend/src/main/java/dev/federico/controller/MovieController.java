@@ -9,8 +9,8 @@ import dev.federico.interfaces.Movie;
 import dev.federico.service.MovieService;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-import org.springframework.web.bind.annotation.GetMapping;
 
 
 @RestController
@@ -30,9 +30,10 @@ public class MovieController {
         return new ResponseEntity<Optional<Movie>>(service.findMovieByImdbId(imdbId), HttpStatus.OK);
     }
     
-    @GetMapping("/test")
-    public String getTest() {
-        return "Hello World !!!!";
+    @PostMapping("/set-movie-like")
+    public ResponseEntity<String> setMovieLike(@RequestBody Map<String, String> payload){
+        Movie m = service.findMovieByImdbId(payload.get("imdbId")).get();
+        m.setLiked(!m.getLiked());
+        return new ResponseEntity<String>("OK", HttpStatus.OK);
     }
-    
 }

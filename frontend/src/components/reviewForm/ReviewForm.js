@@ -2,6 +2,8 @@ import {Form,Button} from 'react-bootstrap';
 import './ReviewForm';
 
 const ReviewForm = ({handleSubmit,revText,labelText,defaultValue}) => {
+  //console.log(revText);
+  const lblBtn = revText.value != "" ? "Submit" : "Update";
   return (
 
     <Form>
@@ -9,7 +11,7 @@ const ReviewForm = ({handleSubmit,revText,labelText,defaultValue}) => {
             <Form.Label>{labelText}</Form.Label>
             <Form.Control ref={revText} as="textarea" rows={3} defaultValue={defaultValue} style={{ resize: 'none' }} />
         </Form.Group>
-        <Button variant="outline-info" onClick={handleSubmit}>Submit</Button>
+      <Button variant="outline-info" onClick={handleSubmit}>{lblBtn}</Button>
     </Form>   
 
   )

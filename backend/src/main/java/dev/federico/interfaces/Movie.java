@@ -26,8 +26,9 @@ public class Movie {
     private List<String> genres;
     @DocumentReference
     private List<Review> reviews;
+    private Boolean liked;
 
-    public Movie(String imdbId, String title, String releaseDate, String trailerLink, String poster, List<String> backdrops, List<String> genres) {
+    public Movie(String imdbId, String title, String releaseDate, String trailerLink, String poster, List<String> backdrops, List<String> genres, boolean liked) {
         this.imdbId = imdbId;
         this.title = title;
         this.releaseDate = releaseDate;
@@ -35,5 +36,6 @@ public class Movie {
         this.poster = poster;
         this.backdrops = backdrops;
         this.genres = genres;
+        this.liked = liked;
     }
 }
