@@ -4,13 +4,16 @@
     margin: 15px 5px;
 }
 .card-movie-title {
-    font-size: 28px;
+    font-size: 24px;
+    color: #d2d200;
 }
 .card-movie-release-date {
     font-size: 16px;
+    color: #d2d200;
 }
 .card-move-image {
-    max-width: 250px;
+    max-width: 160px;
+    margin: 20px 0;
 }
 .card-movie-genres-container{
     width: auto;
@@ -18,9 +21,5 @@
     border-radius: 10px;
     border: white 1px solid;
     padding: 20px;
-}
-.header-col{
-    padding: 5px;
-    background-color: rgb(75, 69, 69);
-    text-align: center;
+    margin: 10px
 }
