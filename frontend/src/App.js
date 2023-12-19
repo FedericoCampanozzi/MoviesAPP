@@ -43,7 +43,7 @@ function App() {
   const getGenres = async () => {
     try {
       const response = await api.get("/api/v1/genres/get-all");
-      setGenres(response.data);
+      setGenres(response.data["gname"]);
     } catch (err) {
       console.error(err);
     }

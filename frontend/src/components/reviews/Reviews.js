@@ -12,6 +12,7 @@ import React from "react";
 
 let editReviewIndex = -1;
 let valueOfText = "";
+let valueOfTextEdit = "";
 
 const Reviews = ({ getMovieData, movie, reviews, setReviews, setMovie }) => {
   const revText = useRef();
@@ -39,7 +40,7 @@ const Reviews = ({ getMovieData, movie, reviews, setReviews, setMovie }) => {
   const openEditReview = async (event, review, index) => {
     event.preventDefault();
     editReviewIndex = index;
-    valueOfText = review.body;
+    valueOfTextEdit = review.body;
     const rr = [...reviews];
     rr[index] = review;
     setReviews(rr);
@@ -66,11 +67,18 @@ const Reviews = ({ getMovieData, movie, reviews, setReviews, setMovie }) => {
     event.preventDefault();
     const rev = revText.current;
     try {
+      console.log(review);
+      console.log(review.review_id  );
+      const response = await api.post("/api/v1/reviews/update-body", {
+        reviewId: review.review_id,
+        reviewBody: valueOfTextEdit
+      });
+      console.log("response=",response);
       editReviewIndex = -1;
       const rr = [...reviews];
       rr[index].body = rev.value;
       rev.value = "";
-      valueOfText = "";
+      valueOfTextEdit = "";
       setReviews(rr);
     } catch (err) {
       console.error(err);
@@ -137,7 +145,7 @@ const Reviews = ({ getMovieData, movie, reviews, setReviews, setMovie }) => {
                         <ReviewForm
                           handleSubmit={(e) => updateReview(e, r, i)}
                           revText={revText}
-                          defaultValue={valueOfText}
+                          defaultValue={valueOfTextEdit}
                           labelText="Update current Review?"
                         />
                       </>

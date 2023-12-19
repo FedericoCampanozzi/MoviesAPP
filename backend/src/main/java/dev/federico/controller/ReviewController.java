@@ -20,4 +20,15 @@ public class ReviewController {
     public ResponseEntity<Review> createReview(@RequestBody Map<String, String> payload) {
         return new ResponseEntity<Review>(service.createReview(payload.get("reviewBody"), payload.get("imdbId")), HttpStatus.OK);
     }
+
+    @PostMapping("/update-body")
+    public ResponseEntity<Boolean> updateReviewBody(@RequestBody Map<String, String> payload){
+        return new ResponseEntity<Boolean>(service.updateReviewBody(payload.get("reviewId"), payload.get("reviewBody")), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/documents/{id}")
+    public ResponseEntity<String> deleteDocument(@PathVariable Integer id) {
+        service.deleteDocumentById(id);
+        return ResponseEntity.ok("Document deleted successfully");
+    }
 }

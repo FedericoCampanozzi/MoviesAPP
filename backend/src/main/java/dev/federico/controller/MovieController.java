@@ -32,8 +32,9 @@ public class MovieController {
     
     @PostMapping("/set-movie-like")
     public ResponseEntity<String> setMovieLike(@RequestBody Map<String, String> payload){
-        Movie m = service.findMovieByImdbId(payload.get("imdbId")).get();
-        m.setLiked(!m.getLiked());
+        String imdbId = payload.get("imdbId");
+        Boolean oldValue = service.findMovieByImdbId(imdbId).get().getLiked();
+        service.updateMovieLike(imdbId, oldValue);
         return new ResponseEntity<String>("OK", HttpStatus.OK);
     }
 }
