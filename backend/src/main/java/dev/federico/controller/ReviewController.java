@@ -23,12 +23,12 @@ public class ReviewController {
 
     @PostMapping("/update-body")
     public ResponseEntity<Boolean> updateReviewBody(@RequestBody Map<String, String> payload){
-        return new ResponseEntity<Boolean>(service.updateReviewBody(payload.get("reviewId"), payload.get("reviewBody")), HttpStatus.OK);
+        return new ResponseEntity<Boolean>(service.updateReviewBody(Integer.parseInt(payload.get("reviewId")), payload.get("reviewBody")), HttpStatus.OK);
     }
 
-    @DeleteMapping("/documents/{id}")
-    public ResponseEntity<String> deleteDocument(@PathVariable Integer id) {
-        service.deleteDocumentById(id);
+    @DeleteMapping("/delete/{reviewId}")
+    public ResponseEntity<String> deleteDocument(@PathVariable Integer reviewId) {
+        service.deleteDocumentById(reviewId);
         return ResponseEntity.ok("Document deleted successfully");
     }
 }
