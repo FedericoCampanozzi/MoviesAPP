@@ -1,7 +1,10 @@
 # MoviesAPP
 ## Roadmap
-- Implement edit and delete review
-- Implement favorite page
-    - Table of liked films with genres filter
-    - All filters are implemented in the front end using the checkbox UI component
-- Refactoring components
+- Refactoring components into frontend and backend
+
+## Bug List
+
+## Code Optimization
+- Use the useState function instead of passing each time all methods used in the component
+- Use State instead of new Ref()
+- Thinking about a shared module that uses state to initializing some variable
