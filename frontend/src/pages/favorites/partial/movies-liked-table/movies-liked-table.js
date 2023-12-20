@@ -1,12 +1,12 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
 import './movies-liked-table.css';
-import '../../../../shared/environment-variable';
+import EnvironmentVariable from "../../../../shared/environment-variable";
 
 const MovieLikedTable = () => {
   return (
     <>
-      {liked_filtered_movies?.map((m, i) => {
+      {EnvironmentVariable.liked_filtered_movies?.map((m, i) => {
         return (
           <Row key={i} className="card-movie-container">
             <Col>

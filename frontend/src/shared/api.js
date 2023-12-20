@@ -22,6 +22,7 @@ const getMoviesAPI = async () => {
     const response = await axios.get("/api/v1/movies");
     EnvironmentVariable.movies = [...response.data];
     EnvironmentVariable.liked_movies = EnvironmentVariable.movies.filter((movie)=>movie.liked);
+    EnvironmentVariable.liked_filtered_movies = EnvironmentVariable.liked_movies;
   } catch (err) {
     console.error(err);
   }
@@ -89,6 +90,7 @@ const deleteReviewAPI = async (event, review, index) => {
 /* GENRES */
 const getGenresAPI = async () => {
   try {
+    EnvironmentVariable.genres = [];
     const response = await axios.get("/api/v1/genres/get-all");
     response.data["gname"].forEach(name => {
       EnvironmentVariable.genres.push({
