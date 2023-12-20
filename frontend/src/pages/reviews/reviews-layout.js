@@ -24,20 +24,7 @@ const Reviews = ({ getMovieData, movie, reviews, setReviews, setMovie }) => {
     getMovieData(movieId);
   }, []);
 
-  const updateMovieLike = async (e) => {
-    e.preventDefault();
-    const response = await api.post("/api/v1/movies/set-movie-like", {
-      imdbId: movieId,
-    });
-    if (response.data == "OK") {
-      movie.liked = !movie.liked;
-      setMovie(movie);
-      const rr = [...reviews];
-      setReviews(rr);
-    } else {
-      throw new Error("Liked not set");
-    }
-  };
+
 
   const openEditReview = async (event, review, index) => {
     event.preventDefault();
@@ -48,53 +35,11 @@ const Reviews = ({ getMovieData, movie, reviews, setReviews, setMovie }) => {
     setReviews(rr);
   };
 
-  const addReview = async (e) => {
-    e.preventDefault();
-    const rev = revText.current;
-    try {
-      const response = await api.post("/api/v1/reviews", {
-        reviewBody: rev.value,
-        imdbId: movieId,
-      });
-      const updatedReviews = [...reviews, { body: rev.value }];
-      rev.value = "";
-      valueOfText = "";
-      setReviews(updatedReviews);
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
-  const updateReview = async (event, review, index) => {
-    event.preventDefault();
-    const rev = revText.current;
-    try {
-      await api.post("/api/v1/reviews/update-body", {
-        reviewId: review.reviewId,
-        reviewBody: rev.value
-      });
-      editReviewIndex = -1;
-      const rr = [...reviews];
-      rr[index].body = rev.value;
-      rev.value = "";
-      valueOfTextEdit = "";
-      setReviews(rr);
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
-  const deleteReview = async (event, review, index) => {
-    event.preventDefault();
-    try {
-      await api.delete(`/api/v1/reviews/delete/${review.reviewId}`);
-      const rr = [...reviews];
-      rr.splice(index, 1);
-      setReviews(rr);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+
+
+
   return (
     <Container>
       <Row key={"r0"}>

@@ -1,75 +1,18 @@
-import "./App.css";
-import api from "./api/axiosConfig";
+import "./app.css";
 import { useState, useEffect } from "react";
-import Layout from "./components/Layout";
 import { Routes, Route } from "react-router-dom";
-import Home from "./components/home/Home";
-import Header from "./components/header/Header";
-import Trailer from "./components/trailer/Trailer";
-import Reviews from "./components/reviews/Reviews";
-import NotFound from "./components/notFound/NotFound";
-import Favorite from "./components/favorites/Favorites";
+import Layout from "./layout";
+import Home from "./pages/home/home";
+import NotFound from "./pages/not-found/not-found";
+import Header from "./header";
+import Trailer from "./pages/home/partial/trailer/trailer";
+import Favorites from "./pages/favorites/favorites";
+import { getMoviesAPI, getGenresAPI } from './shared/api';
 
 function App() {
-
-  const [movies, setMovies] = useState();
-  const [movie, setMovie] = useState();
-  const [reviews, setReviews] = useState([]);
-  const [genres, setGenres] = useState([]);
-  const [likedMovies, setLikedMovies] = useState([]);
-
-  const getMovies = async () => {
-    try {
-      const response = await api.get("/api/v1/movies");
-      const m = [...response.data];
-      setMovies(m);
-      setLikedMovies(m.filter((movie)=>movie.liked));
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const getMovieData = async (movieId) => {
-    try {
-      const response = await api.get(`/api/v1/movies/${movieId}`);
-      const singleMovie = response.data;
-      setMovie(singleMovie);
-      setReviews(singleMovie.reviews);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  
-  const getGenres = async () => {
-    try {
-      const response = await api.get("/api/v1/genres/get-all");
-      const genres = [];
-      response.data["gname"].forEach(name => {
-        genres.push({
-          "name": name,
-          "checked": true
-        });
-      });
-      setGenres(genres);
-
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  useEffect(() => {
-    getMovies();
-    getGenres();
-  }, []);
-
-  return (
-    <div className="App">
-      <Header />
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route path="/" element={<Home movies={movies} />}></Route>
-          <Route path="/Trailer/:ytTrailerId" element={<Trailer />}></Route>
-          <Route
+  const [updater, setUpdater] = useState();
+  /*
+  <Route
             path="/Reviews/:movieId"
             element={
               <Reviews
@@ -81,15 +24,22 @@ function App() {
               />
             }
           ></Route>
+  */
+  useEffect(() => {
+    getMoviesAPI();
+    getGenresAPI();
+  }, []);
+  return (
+    <div className="app-style">
+      <Header />
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/Trailer/:ytTrailerId" element={<Trailer />}></Route>
           <Route
             path="/favorites"
             element={
-              <Favorite 
-                genres={genres} 
-                likedMovies={likedMovies}
-                setLikedMovies={setLikedMovies}
-                setGenres={setGenres}
-              />
+              <Favorites />
             }
           ></Route>
           <Route path="*" element={<NotFound />}></Route>
