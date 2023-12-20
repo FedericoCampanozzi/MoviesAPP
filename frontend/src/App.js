@@ -43,7 +43,15 @@ function App() {
   const getGenres = async () => {
     try {
       const response = await api.get("/api/v1/genres/get-all");
-      setGenres(response.data["gname"]);
+      const genres = [];
+      response.data["gname"].forEach(name => {
+        genres.push({
+          "name": name,
+          "checked": true
+        });
+      });
+      setGenres(genres);
+
     } catch (err) {
       console.error(err);
     }
@@ -78,7 +86,9 @@ function App() {
             element={
               <Favorite 
                 genres={genres} 
-                likedMovies={likedMovies} 
+                likedMovies={likedMovies}
+                setLikedMovies={setLikedMovies}
+                setGenres={setGenres}
               />
             }
           ></Route>

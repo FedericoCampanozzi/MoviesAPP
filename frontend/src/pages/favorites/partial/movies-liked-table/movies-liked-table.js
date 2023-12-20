@@ -24,8 +24,8 @@ const MovieLikedTable = ({ likedMovies }) => {
                 Genres:
                 {m.genres.map((g, i) => {
                   return (
-                    <Row key={"r" + i}>
-                      <Col key={"c" + i}>{g}</Col>
+                    <Row key={`r_gen_${i}`}>
+                      <Col key={`c_gen_${i}`}>{g}</Col>
                     </Row>
                   );
                 })}

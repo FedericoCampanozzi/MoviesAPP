@@ -32,6 +32,8 @@ const Reviews = ({ getMovieData, movie, reviews, setReviews, setMovie }) => {
     if (response.data == "OK") {
       movie.liked = !movie.liked;
       setMovie(movie);
+      const rr = [...reviews];
+      setReviews(rr);
     } else {
       throw new Error("Liked not set");
     }
@@ -67,13 +69,10 @@ const Reviews = ({ getMovieData, movie, reviews, setReviews, setMovie }) => {
     event.preventDefault();
     const rev = revText.current;
     try {
-      console.log(review);
-      console.log(review.review_id  );
-      const response = await api.post("/api/v1/reviews/update-body", {
-        reviewId: review.review_id,
-        reviewBody: valueOfTextEdit
+      await api.post("/api/v1/reviews/update-body", {
+        reviewId: review.reviewId,
+        reviewBody: rev.value
       });
-      console.log("response=",response);
       editReviewIndex = -1;
       const rr = [...reviews];
       rr[index].body = rev.value;
@@ -88,6 +87,7 @@ const Reviews = ({ getMovieData, movie, reviews, setReviews, setMovie }) => {
   const deleteReview = async (event, review, index) => {
     event.preventDefault();
     try {
+      await api.delete(`/api/v1/reviews/delete/${review.reviewId}`);
       const rr = [...reviews];
       rr.splice(index, 1);
       setReviews(rr);
