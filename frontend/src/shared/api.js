@@ -1,106 +1,103 @@
 import axios from "./axios.config";
-import EnvironmentVariable from './environment-variable';
 
-/* MOVIE API */
-const updateMovieLikeAPI = async (e) => {
-  e.preventDefault();
-  const response = await axios.post("/api/v1/movies/set-movie-like", {
-    imdbId: movieId,
-  });
-  if (response.data == "OK") {
-    movie.liked = !movie.liked;
-    setMovie(movie);
-    const rr = [...reviews];
-    setReviews(rr);
-  } else {
-    throw new Error("Liked not set");
-  }
-};
-
-const getMoviesAPI = async () => {
+function errorFlow(func) {
   try {
-    const response = await axios.get("/api/v1/movies");
-    EnvironmentVariable.movies = [...response.data];
-    EnvironmentVariable.liked_movies = EnvironmentVariable.movies.filter((movie)=>movie.liked);
-    EnvironmentVariable.liked_filtered_movies = EnvironmentVariable.liked_movies;
+    func();
   } catch (err) {
     console.error(err);
   }
+}
+
+/* MOVIE API */
+const updateMovieLikeAPI = async (movie, setMovie) => {
+  //const { movie, setMovie } = useSharedState();
+  errorFlow(async () => {
+    await axios.post("/api/v1/movies/set-movie-like", {
+      imdbId: movie.imdbId,
+    });
+    movie.liked = !movie.liked;
+    setMovie(movie);
+  });
 };
 
-const getMovieAPI = async (movieId) => {
-  try {
-    const response = await api.get(`/api/v1/movies/${movieId}`);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
+const getMoviesAPI = async (setMovies, setLikedMovies, setLikedFilteredMovies) => {
+  //const { setMovies, setLikedMovies, setLikedFilteredMovies } = useSharedState();
+  errorFlow(async () => {
+    const response = await axios.get("/api/v1/movies");
+    const m = [...response.data];
+    const lm = m.filter((movie) => movie.liked);
+    setMovies(m);
+    setLikedMovies(lm);
+    setLikedFilteredMovies(lm);
+  });
+};
+
+const getMovieAPI = async (movieId, setMovie, setReviews) => {
+  //const { setMovie, setReviews } = useSharedState();
+  errorFlow(async () => {
+    const response = await axios.get(`/api/v1/movies/${movieId}`);
+    const m = response.data;
+    const r = response.data.reviews;
+    setMovie(m);
+    setReviews(r);
+  });
 };
 
 /* REVIEW API */
-const putReviewAPI = async (e) => {
-  e.preventDefault();
-  const rev = revText.current;
-  try {
-    const response = await api.post("/api/v1/reviews", {
-      reviewBody: rev.value,
+const putReviewAPI = async (reviewBody, movieId) => {
+  errorFlow(async () => {
+    await axios.post("/api/v1/reviews", {
+      reviewBody: reviewBody,
       imdbId: movieId,
     });
-    const updatedReviews = [...reviews, { body: rev.value }];
-    rev.value = "";
-    valueOfText = "";
-    setReviews(updatedReviews);
-  } catch (err) {
-    console.error(err);
-  }
+  });
 };
 
-const updateReviewBodyAPI = async (event, review, index) => {
-  event.preventDefault();
-  const rev = revText.current;
-  try {
+const updateReviewBodyAPI = async (reviewId, reviewBody, reviewIndex, setReviews) => {
+  //const { setReviews } = useSharedState();
+  errorFlow(async () => {
     await api.post("/api/v1/reviews/update-body", {
-      reviewId: review.reviewId,
-      reviewBody: rev.value,
+      reviewId: reviewId,
+      reviewBody: reviewBody,
     });
-    editReviewIndex = -1;
-    const rr = [...reviews];
-    rr[index].body = rev.value;
-    rev.value = "";
-    valueOfTextEdit = "";
-    setReviews(rr);
-  } catch (err) {
-    console.error(err);
-  }
+    const r = [...reviews];
+    r[reviewIndex].body = reviewBody;
+    setReviews(r);
+  });
 };
 
-const deleteReviewAPI = async (event, review, index) => {
-  event.preventDefault();
-  try {
-    await api.delete(`/api/v1/reviews/delete/${review.reviewId}`);
-    const rr = [...reviews];
-    rr.splice(index, 1);
-    setReviews(rr);
-  } catch (err) {
-    console.error(err);
-  }
+const deleteReviewAPI = async (reviewId, reviewIndex, setReviews) => {
+  //const { setReviews } = useSharedState();
+  errorFlow(async () => {
+    await api.delete(`/api/v1/reviews/delete/${reviewId}`);
+    let r = [...reviews];
+    r = r.splice(reviewIndex, 1);
+    setReviews(r);
+  });
 };
 
 /* GENRES */
-const getGenresAPI = async () => {
-  try {
-    EnvironmentVariable.genres = [];
+const getGenresAPI = async (setGenres) => {
+  //const { setGenres } = useSharedState();
+  errorFlow(async () => {
+    let g = [];
     const response = await axios.get("/api/v1/genres/get-all");
-    response.data["gname"].forEach(name => {
-      EnvironmentVariable.genres.push({
-        "name": name,
-        "checked": true
+    response.data["gname"].forEach((name) => {
+      g.push({
+        name: name,
+        checked: true,
       });
     });
-  } catch (err) {
-    console.error(err);
-  }
+    setGenres(g);
+  });
 };
 
-export {getMoviesAPI, getGenresAPI};
+export {
+  getMoviesAPI,
+  getMovieAPI,
+  updateMovieLikeAPI,
+  putReviewAPI,
+  updateReviewBodyAPI,
+  deleteReviewAPI,
+  getGenresAPI
+};

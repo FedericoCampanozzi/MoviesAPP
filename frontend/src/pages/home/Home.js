@@ -5,19 +5,32 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlay } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 import "./home.css";
-import EnvironmentVariable from '../../shared/environment-variable';
-
+import { useSharedState } from "../../shared/state-context";
+import { getMoviesAPI, getGenresAPI } from "../../shared/api";
+import { useEffect } from "react";
 import React from "react";
 
 const Home = () => {
   const navigate = useNavigate();
+  
+  const { movies, 
+          setMovies, 
+          setLikedMovies, 
+          setLikedFilteredMovies, 
+          setGenres } = useSharedState();
+
+  useEffect(() => {
+    getMoviesAPI(setMovies, setLikedMovies, setLikedFilteredMovies);
+    getGenresAPI(setGenres);
+  }, []);
+
   function reviews(movieId) {
     navigate(`/Reviews/${movieId}`);
   }
   return (
     <div className="movie-carousel-container">
       <Carousel>
-        {EnvironmentVariable.movies?.map((movie) => {
+        {movies?.map((movie) => {
           return (
             <Paper key={movie.imdbId}>
               <div className="movie-card-container">

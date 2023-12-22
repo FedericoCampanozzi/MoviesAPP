@@ -1,0 +1,9 @@
+.data-title{
+    font-size: 11px;
+    text-align: end;
+    padding-top: 4px;
+}
+.small-button{
+    padding: 0px 6px !important;
+    margin: 4px !important;
+}

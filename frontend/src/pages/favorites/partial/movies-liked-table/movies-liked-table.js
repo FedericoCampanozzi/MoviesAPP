@@ -1,12 +1,15 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
 import './movies-liked-table.css';
-import EnvironmentVariable from "../../../../shared/environment-variable";
+import { useSharedState } from "../../../../shared/state-context";
 
 const MovieLikedTable = () => {
+  const {
+    liked_filtered_movies
+  } = useSharedState();
   return (
     <>
-      {EnvironmentVariable.liked_filtered_movies?.map((m, i) => {
+      {liked_filtered_movies?.map((m, i) => {
         return (
           <Row key={i} className="card-movie-container">
             <Col>
