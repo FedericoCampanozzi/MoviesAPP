@@ -18,7 +18,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<Home />}></Route>
             <Route path="/Trailer/:ytTrailerId" element={<Trailer />}></Route>
-            <Route path="/Reviews/:movieId" element={<ReviewsLayout />}></Route>
+            <Route path="/Reviews/:movieId" element={<ReviewsLayout updater={"some text"}/>}></Route>
             <Route path="/favorites" element={<Favorites />}></Route>
             <Route path="*" element={<NotFound />}></Route>
           </Route>

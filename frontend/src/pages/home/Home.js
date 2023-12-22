@@ -13,16 +13,7 @@ import React from "react";
 const Home = () => {
   const navigate = useNavigate();
   
-  const { movies, 
-          setMovies, 
-          setLikedMovies, 
-          setLikedFilteredMovies, 
-          setGenres } = useSharedState();
-
-  useEffect(() => {
-    getMoviesAPI(setMovies, setLikedMovies, setLikedFilteredMovies);
-    getGenresAPI(setGenres);
-  }, []);
+  const { movies } = useSharedState();
 
   function reviews(movieId) {
     navigate(`/Reviews/${movieId}`);

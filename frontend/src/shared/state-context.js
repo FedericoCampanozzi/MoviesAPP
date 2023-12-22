@@ -9,7 +9,7 @@ export const SharedStateProvider = ({ children }) => {
   const [reviews, setReviews] = useState([]);
   const [genres, setGenres] = useState([]);
   const [movie, setMovie] = useState();
-  const [updater, setUpdater] = useState("Some text");
+  const [reviewBody, setReviewBody] = useState("");
 
   return (
     <SharedStateContext.Provider
@@ -26,8 +26,8 @@ export const SharedStateProvider = ({ children }) => {
         setGenres,
         movie,
         setMovie,
-        updater,
-        setUpdater
+        reviewBody,
+        setReviewBody
       }}
     >
       {children}

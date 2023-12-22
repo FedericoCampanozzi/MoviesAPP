@@ -6,26 +6,18 @@ import { useSharedState } from "../../../../shared/state-context";
 
 
 const GenresFilter = () => {
-  const {
-    setMovies,
-    setLikedMovies,
-    setLikedFilteredMovies,
-    reviews,
-    setReviews,
-    setGenres,
-    movie,
-    setMovie,
-    genres
-  } = useSharedState();
-  const filterMovies = (movie, index) => {
+  const { genres, liked_movies, setLikedFilteredMovies } = useSharedState();
+  const filterMovies = (index) => {
     genres[index]["checked"] = !genres[index]["checked"];
-    liked_filtered_movies = liked_movies.filter((movie) => {
-      let filter = true;
-      for (let i = 0; i < movie.genres.length && filter; i++)
-        for (let j = 0; j < genres.length && filter; j++)
-          if (movie.genres[i] == genres[j]["name"]) filter = false;
-      return filter;
+    let flm = liked_movies.filter((movie) => {
+      let cg = 0;
+      for (let i = 0; i < movie.genres.length; i++)
+        for (let j = 0; j < genres.length; j++)
+          if (genres[j]["checked"] && movie.genres[i] == genres[j]["name"]) 
+            cg ++;
+      return cg>0;
     });
+    setLikedFilteredMovies(flm);
   };
   return (
     <>
@@ -36,7 +28,7 @@ const GenresFilter = () => {
               <Col key={`genres_col_${index}`} className="header-col">
                 <Form.Check
                   type="switch"
-                  onChange={(value) => filterMovies(movie, g_itm)}
+                  onChange={(value) => filterMovies(index)}
                   value={g_itm["name"]}
                   id={`genres_col_ckbox_${index}`}
                   label={g_itm["name"]}

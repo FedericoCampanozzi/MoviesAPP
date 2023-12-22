@@ -10,7 +10,6 @@ function errorFlow(func) {
 
 /* MOVIE API */
 const updateMovieLikeAPI = async (movie, setMovie) => {
-  //const { movie, setMovie } = useSharedState();
   errorFlow(async () => {
     await axios.post("/api/v1/movies/set-movie-like", {
       imdbId: movie.imdbId,
@@ -21,7 +20,6 @@ const updateMovieLikeAPI = async (movie, setMovie) => {
 };
 
 const getMoviesAPI = async (setMovies, setLikedMovies, setLikedFilteredMovies) => {
-  //const { setMovies, setLikedMovies, setLikedFilteredMovies } = useSharedState();
   errorFlow(async () => {
     const response = await axios.get("/api/v1/movies");
     const m = [...response.data];
@@ -33,7 +31,6 @@ const getMoviesAPI = async (setMovies, setLikedMovies, setLikedFilteredMovies) =
 };
 
 const getMovieAPI = async (movieId, setMovie, setReviews) => {
-  //const { setMovie, setReviews } = useSharedState();
   errorFlow(async () => {
     const response = await axios.get(`/api/v1/movies/${movieId}`);
     const m = response.data;
@@ -44,17 +41,16 @@ const getMovieAPI = async (movieId, setMovie, setReviews) => {
 };
 
 /* REVIEW API */
-const putReviewAPI = async (reviewBody, movieId) => {
+const putReviewAPI = async (reviewBody, imdbId) => {
   errorFlow(async () => {
     await axios.post("/api/v1/reviews", {
       reviewBody: reviewBody,
-      imdbId: movieId,
+      imdbId: imdbId
     });
   });
 };
 
 const updateReviewBodyAPI = async (reviewId, reviewBody, reviewIndex, setReviews) => {
-  //const { setReviews } = useSharedState();
   errorFlow(async () => {
     await api.post("/api/v1/reviews/update-body", {
       reviewId: reviewId,
@@ -67,7 +63,6 @@ const updateReviewBodyAPI = async (reviewId, reviewBody, reviewIndex, setReviews
 };
 
 const deleteReviewAPI = async (reviewId, reviewIndex, setReviews) => {
-  //const { setReviews } = useSharedState();
   errorFlow(async () => {
     await api.delete(`/api/v1/reviews/delete/${reviewId}`);
     let r = [...reviews];
@@ -78,7 +73,6 @@ const deleteReviewAPI = async (reviewId, reviewIndex, setReviews) => {
 
 /* GENRES */
 const getGenresAPI = async (setGenres) => {
-  //const { setGenres } = useSharedState();
   errorFlow(async () => {
     let g = [];
     const response = await axios.get("/api/v1/genres/get-all");

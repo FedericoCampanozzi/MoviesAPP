@@ -4,9 +4,16 @@ import Container from "react-bootstrap/Container"
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import {NavLink} from "react-router-dom";
+import { useSharedState } from "./shared/state-context";
+import { getMoviesAPI, getGenresAPI } from "./shared/api";
+import { useEffect } from "react";
 
 const Header = () => {
- 
+    const { setMovies, setLikedMovies, setLikedFilteredMovies, setGenres } = useSharedState();
+    useEffect(()=>{
+        getMoviesAPI(setMovies, setLikedMovies, setLikedFilteredMovies);
+        getGenresAPI(setGenres);
+    }, []);
 return (
     <Navbar bg="dark" variant="dark" expand="lg">
         <Container fluid>

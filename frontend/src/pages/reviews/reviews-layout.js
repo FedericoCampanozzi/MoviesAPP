@@ -15,16 +15,21 @@ import React from "react";
 import "./reviews-layout.css";
 import { useSharedState } from "../../shared/state-context";
 
-let reviewBody = "";
-
 const ReviewsLayout = () => {
   const movieId = useParams().movieId;
-  const { movie, setMovie, setReviews } = useSharedState();
+  const { movie, setMovie, setReviews, reviewBody } = useSharedState();
+
   useEffect(() => {
     getMovieAPI(movieId, setMovie, setReviews);
   }, []);
+
   const putReview = async () => {
-    putReviewAPI(reviewBody, movieId);
+    putReviewAPI(reviewBody, movie.imdbId);
+    //window.location.reload();
+  }
+  const updateMovieLike = async () => {
+    updateMovieLikeAPI(movie, setMovie);
+    window.location.reload();
   }
   return (
     <Container>
@@ -40,7 +45,7 @@ const ReviewsLayout = () => {
                 ? "like-btn movie-liked"
                 : "like-btn movie-unliked"
             }
-            onClick={updateMovieLikeAPI}
+            onClick={updateMovieLike}
           >
             <FontAwesomeIcon icon={faHeart} />
           </Button>
@@ -60,7 +65,6 @@ const ReviewsLayout = () => {
               <ReviewForm
                 submitFunction={putReview}
                 label="Write a Review?"
-                value={reviewBody}
                 controlId="AddReview"
               />
             </Col>

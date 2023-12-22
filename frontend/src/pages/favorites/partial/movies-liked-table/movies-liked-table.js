@@ -4,9 +4,7 @@ import './movies-liked-table.css';
 import { useSharedState } from "../../../../shared/state-context";
 
 const MovieLikedTable = () => {
-  const {
-    liked_filtered_movies
-  } = useSharedState();
+  const { liked_filtered_movies } = useSharedState();
   return (
     <>
       {liked_filtered_movies?.map((m, i) => {
