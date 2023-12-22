@@ -24,7 +24,10 @@ public class ReviewService {
 
     public Review createReview(String reviewBody, String imdbId) {
         List<Review> allReviews = repository.findAll();
-        Integer reviewId = (int) (allReviews.get(allReviews.size()-1).getReviewId() + 1);
+        Integer size = allReviews.size();
+        Integer reviewId = 1;
+        if(size != 0)
+            reviewId = (int) (allReviews.get(size-1).getReviewId() + 1);
         Review review = repository.insert(new Review(reviewId, reviewBody, LocalDateTime.now(), LocalDateTime.now()));
         mongoTemplate.update(Movie.class)
             .matching(Criteria.where("imdbId").is(imdbId))

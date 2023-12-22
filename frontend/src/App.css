@@ -15,3 +15,7 @@ body{
   background-color: black;
   color:white;
 }
+.small-button{
+  padding: 0px 6px !important;
+  margin: 4px !important;
+}

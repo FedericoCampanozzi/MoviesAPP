@@ -4,20 +4,30 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "react-bootstrap";
 import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { useSharedState } from "../../../../shared/state-context";
-
-let editReviewIndex = -1;
+import ReviewForm from "../review-form/review-form";
+import { deleteReviewAPI, updateReviewBodyAPI } from "../../../../shared/api";
 
 const ReviewsTable = () => {
-  const { reviews } = useSharedState();
-  const openEditReview = async (event, review, index) => {
-    event.preventDefault();
-    editReviewIndex = index;
-    valueOfTextEdit = review.body;
-    const rr = [...reviews];
-    rr[index] = review;
-    setReviews(rr);
+  const {
+    reviews,
+    reviewBody,
+    setReviews,
+    editReviewIndex,
+    setEditReviewIndex,
+  } = useSharedState();
+  const updateReviewBody = async () => {
+    updateReviewBodyAPI(reviews[editReviewIndex].reviewId, reviewBody);
+    const r = [...reviews];
+    r[editReviewIndex].body = reviewBody;
+    setReviews(r);
+    window.location.reload();
   };
-
+  const deleteReview = async (reviewId, reviewIndex) => {
+    let r = [...reviews];
+    r.splice(reviewIndex, 1);
+    setReviews(r);
+    deleteReviewAPI(reviewId);
+  };
   return (
     <>
       {reviews?.map((r, i) => {
@@ -28,10 +38,10 @@ const ReviewsTable = () => {
                 {editReviewIndex === i ? (
                   <>
                     <ReviewForm
-                      handleSubmit={(e) => updateReview(e, r, i)}
-                      revText={revText}
-                      defaultValue={valueOfTextEdit}
-                      labelText="Update current Review?"
+                      initValue={reviews[editReviewIndex].body}
+                      label="Update current Review?"
+                      controlId="UpdateReview"
+                      submitFunction={updateReviewBody}
                     />
                   </>
                 ) : (
@@ -42,7 +52,9 @@ const ReviewsTable = () => {
                         <Button
                           variant="outline-info"
                           className="small-button"
-                          onClick={(e) => openEditReview(e, r, i)}
+                          onClick={() => {
+                            setEditReviewIndex(i);
+                          }}
                         >
                           <FontAwesomeIcon icon={faEdit} />
                         </Button>
@@ -53,7 +65,7 @@ const ReviewsTable = () => {
                     <Button
                       variant="outline-warning"
                       className="small-button"
-                      onClick={(e) => deleteReview(e, r, i)}
+                      onClick={(e) => deleteReview(r.reviewId, i)}
                     >
                       <FontAwesomeIcon icon={faTrash} />
                     </Button>

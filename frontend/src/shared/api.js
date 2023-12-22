@@ -50,24 +50,18 @@ const putReviewAPI = async (reviewBody, imdbId) => {
   });
 };
 
-const updateReviewBodyAPI = async (reviewId, reviewBody, reviewIndex, setReviews) => {
+const updateReviewBodyAPI = async (reviewId, reviewBody) => {
   errorFlow(async () => {
-    await api.post("/api/v1/reviews/update-body", {
+    await axios.post("/api/v1/reviews/update-body", {
       reviewId: reviewId,
       reviewBody: reviewBody,
     });
-    const r = [...reviews];
-    r[reviewIndex].body = reviewBody;
-    setReviews(r);
   });
 };
 
-const deleteReviewAPI = async (reviewId, reviewIndex, setReviews) => {
+const deleteReviewAPI = async (reviewId) => {
   errorFlow(async () => {
-    await api.delete(`/api/v1/reviews/delete/${reviewId}`);
-    let r = [...reviews];
-    r = r.splice(reviewIndex, 1);
-    setReviews(r);
+    await axios.delete(`/api/v1/reviews/delete/${reviewId}`);
   });
 };
 

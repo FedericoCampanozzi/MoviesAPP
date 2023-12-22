@@ -25,7 +25,7 @@ const ReviewsLayout = () => {
 
   const putReview = async () => {
     putReviewAPI(reviewBody, movie.imdbId);
-    //window.location.reload();
+    window.location.reload();
   }
   const updateMovieLike = async () => {
     updateMovieLikeAPI(movie, setMovie);
