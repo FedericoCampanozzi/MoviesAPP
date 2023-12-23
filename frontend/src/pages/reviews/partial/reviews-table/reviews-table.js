@@ -30,12 +30,12 @@ const ReviewsTable = () => {
   };
   return (
     <>
-      {reviews?.map((r, i) => {
+      {reviews?.map((review, rIndex) => {
         return (
           <>
-            <Row key={`r6${i}`}>
-              <Col key={`c6${i}`}>
-                {editReviewIndex === i ? (
+            <Row key={`r6${rIndex}`}>
+              <Col key={`c6${rIndex}`}>
+                {editReviewIndex === rIndex ? (
                   <>
                     <ReviewForm
                       initValue={reviews[editReviewIndex].body}
@@ -46,14 +46,14 @@ const ReviewsTable = () => {
                   </>
                 ) : (
                   <>
-                    {r.body}
+                    {review.body}
                     {editReviewIndex === -1 ? (
                       <>
                         <Button
                           variant="outline-info"
                           className="small-button"
                           onClick={() => {
-                            setEditReviewIndex(i);
+                            setEditReviewIndex(rIndex);
                           }}
                         >
                           <FontAwesomeIcon icon={faEdit} />
@@ -65,7 +65,7 @@ const ReviewsTable = () => {
                     <Button
                       variant="outline-warning"
                       className="small-button"
-                      onClick={(e) => deleteReview(r.reviewId, i)}
+                      onClick={() => deleteReview(review.reviewId, rIndex)}
                     >
                       <FontAwesomeIcon icon={faTrash} />
                     </Button>
@@ -73,8 +73,8 @@ const ReviewsTable = () => {
                 )}
               </Col>
             </Row>
-            <Row key={`r7${i}`}>
-              <Col className="data-title" key={`c7${i}`}>
+            <Row key={`r7${rIndex}`}>
+              <Col className="data-title" key={`c7${rIndex}`}>
                 {r.created != null ? (
                   <>{new Date(r.created).toLocaleString()}</>
                 ) : (
@@ -82,8 +82,8 @@ const ReviewsTable = () => {
                 )}
               </Col>
             </Row>
-            <Row key={`r8${i}`}>
-              <Col key={`c8${i}`}>
+            <Row key={`r8${rIndex}`}>
+              <Col key={`c8${rIndex}`}>
                 <hr />
               </Col>
             </Row>

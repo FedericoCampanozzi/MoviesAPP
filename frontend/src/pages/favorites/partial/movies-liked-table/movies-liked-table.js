@@ -7,27 +7,27 @@ const MovieLikedTable = () => {
   const { liked_filtered_movies } = useSharedState();
   return (
     <>
-      {liked_filtered_movies?.map((m, i) => {
+      {liked_filtered_movies?.map((movie, mIndex) => {
         return (
-          <Row key={i} className="card-movie-container">
+          <Row key={mIndex} className="card-movie-container">
             <Col>
-              <img src={m.poster} alt="" className="card-move-image" />
+              <img src={movie.poster} alt="" className="card-move-image" />
             </Col>
             <Col>
               <p>
                 Title:<br />
-                <span className="card-movie-title">{m.title}</span>
+                <span className="card-movie-title">{movie.title}</span>
               </p>
               <p>
                 Data Release:<br />
-                <span className="card-movie-release-date">{m.releaseDate}</span>
+                <span className="card-movie-release-date">{movie.releaseDate}</span>
               </p>
               <div className="card-movie-genres-container">
                 Genres:
-                {m.genres.map((g, i) => {
+                {movie.genres.map((gender, gIndex) => {
                   return (
-                    <Row key={`r_gen_${i}`}>
-                      <Col key={`c_gen_${i}`}>{g}</Col>
+                    <Row key={`r_gen_${gIndex}`}>
+                      <Col key={`c_gen_${gIndex}`}>{gender}</Col>
                     </Row>
                   );
                 })}

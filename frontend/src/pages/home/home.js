@@ -6,8 +6,6 @@ import { faCirclePlay } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 import "./home.css";
 import { useSharedState } from "../../shared/state-context";
-import { getMoviesAPI, getGenresAPI } from "../../shared/api";
-import { useEffect } from "react";
 import React from "react";
 
 const Home = () => {

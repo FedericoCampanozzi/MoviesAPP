@@ -18,11 +18,9 @@ import { useSharedState } from "../../shared/state-context";
 const ReviewsLayout = () => {
   const movieId = useParams().movieId;
   const { movie, setMovie, setReviews, reviewBody } = useSharedState();
-
   useEffect(() => {
     getMovieAPI(movieId, setMovie, setReviews);
   }, []);
-
   const putReview = async () => {
     putReviewAPI(reviewBody, movie.imdbId);
     window.location.reload();

@@ -3,8 +3,6 @@ import { Row, Col } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { useSharedState } from "../../../../shared/state-context";
 
-
-
 const GenresFilter = () => {
   const { genres, liked_movies, setLikedFilteredMovies } = useSharedState();
   const filterMovies = (index) => {
@@ -28,7 +26,7 @@ const GenresFilter = () => {
               <Col key={`genres_col_${index}`} className="header-col">
                 <Form.Check
                   type="switch"
-                  onChange={(value) => filterMovies(index)}
+                  onChange={() => filterMovies(index)}
                   value={g_itm["name"]}
                   id={`genres_col_ckbox_${index}`}
                   label={g_itm["name"]}
