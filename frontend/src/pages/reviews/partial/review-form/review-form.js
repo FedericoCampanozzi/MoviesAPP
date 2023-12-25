@@ -3,13 +3,16 @@ import { Form, Button } from "react-bootstrap";
 import { useSharedState } from "../../../../shared/state-context";
 
 const ReviewForm = ({ submitFunction, label, initValue = "", controlId }) => {
-  const lblBtn = initValue === "" ? "Submit" : "Update";
-  const { reviewBody, setReviewBody } = useSharedState();  
+  const isEditMode = initValue != "";
+  const lblBtn = isEditMode ? "Edit" : "Post";
+  const { reviewBody, setReviewBody, editReviewBody, setEditReviewBody } = useSharedState();  
   useEffect(() => {
-    setReviewBody(initValue);
+    if (isEditMode) setEditReviewBody(initValue);
+    else setReviewBody(initValue);
   }, [initValue, setReviewBody]);
   const handleTextareaChange = (event) => {
-    setReviewBody(event.target.value);
+    if (isEditMode) setEditReviewBody(event.target.value);
+    else setReviewBody(event.target.value);
   };
   return (
     <Form>
@@ -19,7 +22,7 @@ const ReviewForm = ({ submitFunction, label, initValue = "", controlId }) => {
           as="textarea"
           rows={3}
           style={{ resize: "none" }}
-          value={reviewBody}
+          value={isEditMode ? editReviewBody : reviewBody}
           onChange={handleTextareaChange}
         />
       </Form.Group>

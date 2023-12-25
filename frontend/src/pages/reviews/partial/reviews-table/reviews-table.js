@@ -32,7 +32,7 @@ const ReviewsTable = () => {
     <>
       {reviews?.map((review, rIndex) => {
         return (
-          <>
+          <div key={`div_0_${rIndex}`}>
             <Row key={`r6${rIndex}`}>
               <Col key={`c6${rIndex}`}>
                 {editReviewIndex === rIndex ? (
@@ -75,8 +75,8 @@ const ReviewsTable = () => {
             </Row>
             <Row key={`r7${rIndex}`}>
               <Col className="data-title" key={`c7${rIndex}`}>
-                {r.created != null ? (
-                  <>{new Date(r.created).toLocaleString()}</>
+                {review.created != null ? (
+                  <>{new Date(review.created).toLocaleString()}</>
                 ) : (
                   <>Now</>
                 )}
@@ -87,7 +87,7 @@ const ReviewsTable = () => {
                 <hr />
               </Col>
             </Row>
-          </>
+          </div>
         );
       })}
     </>
